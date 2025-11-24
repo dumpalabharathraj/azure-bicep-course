@@ -15,8 +15,8 @@ pool:
 stages:
 - stage: preDeploy
   jobs:
-  - job: scanWhatif
-    displayName: scan and run whatif
+  - job: validateAndPreview
+    displayName: Run Pre-Deployment Checks
     pool:
       vmImage: windows-2022
 
