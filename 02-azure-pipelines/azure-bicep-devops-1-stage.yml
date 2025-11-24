@@ -27,12 +27,17 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
+      - task: AzureCLI@2
+  inputs:
+    azureSubscription: 'azure-connection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
       az --version
       az group create --name $(resourceGroupName) --location $(location) 
       az deployment group what-if --resource-group $(resourceGroupName) \ 
-          --template-file $(templateFile) \ 
-          --parameters webAppName=$(webAppName)
-
+           --template-file $(templateFile) \ 
+           --parameters webAppName=$(webAppName)
 - task: AzureCLI@2
   displayName: Deploy Bicep To Azure
   inputs:
@@ -46,6 +51,13 @@ steps:
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
     inlineScript: |
+      - task: AzureCLI@2
+  inputs:
+    azureSubscription: 'azure-connection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
       az deployment group create --resource-group $(resourceGroupName) \
            --template-file $(templateFile) \ 
-           --parameters webAppName=$(webAppName)
+           --parameters
+      webAppName=$(webAppName)
